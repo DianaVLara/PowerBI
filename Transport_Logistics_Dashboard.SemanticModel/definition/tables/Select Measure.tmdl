@@ -1,0 +1,48 @@
+table 'Select Measure'
+	lineageTag: ee58f51a-3a73-4682-8660-d68010b6b6a7
+
+	column 'Select Measure'
+		lineageTag: 4ddc3043-4165-4e48-b282-9b6080cee3ae
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Select Measure Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Select Measure Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Select Measure Fields'
+		isHidden
+		lineageTag: e67c9aa4-6780-4730-bdac-e5425542e4fb
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Select Measure Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Select Measure Order'
+		isHidden
+		formatString: 0
+		lineageTag: 3c28eeb4-0c45-426e-ab95-100d19f80193
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Select Measure' = calculated
+		mode: import
+		source =
+				{
+				    ("Total Orders", NAMEOF('Orders'[Total Orders]), 0),
+				    ("On Time Delivery Rate", NAMEOF('Orders'[On Time Delivery Rate]), 1)
+				}
+
+	annotation PBI_Id = 6feb82e7011f496c8af058e91003e040
+

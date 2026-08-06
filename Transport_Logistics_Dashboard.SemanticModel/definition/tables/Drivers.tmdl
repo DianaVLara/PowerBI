@@ -1,0 +1,89 @@
+table Drivers
+	lineageTag: 97ada5bf-e97a-4c8a-a72d-97e0e69ba7f9
+
+	measure 'No of Drivers' = "No of Drivers: " & COUNT(Drivers[DriverID])
+		lineageTag: ca547148-4c57-4f9a-8b1d-bb46986bfdb5
+
+	measure 'Drivers Title' = SELECTEDVALUE(Drivers[DriverName]) & " made " & [Total Orders] & " Deliveries in " & SELECTEDVALUE('Date Table'[Month]) & " " & SELECTEDVALUE('Date Table'[Year])
+		lineageTag: 20e59dc3-9f2f-4496-97ce-b3bd5fb83db1
+
+	measure 'Driver Name Title' = "Driver Name: " & SELECTEDVALUE(Drivers[DriverName])
+		lineageTag: ece12a21-4073-4656-bff6-8e395f9ba581
+
+	measure 'Hire Date Title' = "Hire Date: " & SELECTEDVALUE(Drivers[Hire Date])
+		lineageTag: 556fce20-1f92-4e33-80b9-d894bff7b7ca
+
+	measure YOE = "YOE: " & SELECTEDVALUE(Drivers[Experience Years]) & " Years"
+		lineageTag: dc40b297-3047-4b4b-9317-bd78be23684e
+
+	measure 'Star Rating' =
+			
+			
+			REPT(UNICHAR(9733), AVERAGE(Drivers[Performance Rating]))
+			&
+			REPT(UNICHAR(9734), 5-AVERAGE(Drivers[Performance Rating]))
+		lineageTag: 854ef555-b366-4ebf-b1af-ac119a2f1524
+
+	column DriverID
+		dataType: int64
+		formatString: 0
+		lineageTag: 89c7c991-d80d-4439-bec3-2dc561b4508e
+		summarizeBy: none
+		sourceColumn: DriverID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DriverName
+		dataType: string
+		lineageTag: 3680ba9c-5bac-4f42-8d4f-ab5b6ae5058c
+		summarizeBy: none
+		sourceColumn: DriverName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Employment Type'
+		dataType: string
+		lineageTag: 0ba3504d-99cc-4d8b-8b94-298e3a8c370f
+		summarizeBy: none
+		sourceColumn: Employment Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hire Date'
+		dataType: string
+		lineageTag: 5d746c00-b487-46c2-b8d8-1d4d7e6bb428
+		summarizeBy: none
+		sourceColumn: Hire Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Experience Years'
+		dataType: int64
+		formatString: 0
+		lineageTag: 196a9cc3-5628-408e-b0e7-90622f35feb1
+		summarizeBy: none
+		sourceColumn: Experience Years
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Performance Rating'
+		dataType: int64
+		formatString: 0
+		lineageTag: f203e106-13f6-4a68-a28f-0b8ad0517f81
+		summarizeBy: none
+		sourceColumn: Performance Rating
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Drivers = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\DianaLara\Downloads\Data\Drivers.csv"),[Delimiter="	", Columns=6, Encoding=1200, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DriverID", Int64.Type}, {"DriverName", type text}, {"Employment Type", type text}, {"Hire Date", type text}, {"Experience Years", Int64.Type}, {"Performance Rating", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

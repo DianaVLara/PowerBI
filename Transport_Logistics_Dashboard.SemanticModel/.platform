@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Transport_Logistics_Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f712c1b6-44e3-4c77-b824-3b781a9e9dae"
+  }
+}

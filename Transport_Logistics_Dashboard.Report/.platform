@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Transport_Logistics_Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "6aefad88-754d-47c1-8be9-ae2f2df23af0"
+  }
+}

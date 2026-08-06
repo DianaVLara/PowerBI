@@ -1,0 +1,84 @@
+table Vehicles
+	lineageTag: fccda42a-9f4e-4101-b165-71a391e8bab1
+
+	measure 'No of Vehicles' = "No of Vehicles: " & COUNT(Vehicles[Vehicle ID])
+		lineageTag: f0316f9e-d319-423f-a687-58652892bb85
+
+	column 'Purchase Date'
+		dataType: string
+		lineageTag: 818ec1ac-3ecf-467b-830a-a8c5b8e28b78
+		summarizeBy: none
+		sourceColumn: Purchase Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vehicle ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: eab23ba8-877e-42e6-88fd-16a56cd5a661
+		summarizeBy: none
+		sourceColumn: Vehicle ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vehicle Model'
+		dataType: string
+		lineageTag: bb998748-2138-4f52-a0c0-dee84960fd2f
+		summarizeBy: none
+		sourceColumn: Vehicle Model
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vehicle Status'
+		dataType: string
+		lineageTag: 8661bf5d-66c3-4361-8fdd-33a3a824d8b8
+		summarizeBy: none
+		sourceColumn: Vehicle Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Breakdown
+		dataType: int64
+		formatString: 0
+		lineageTag: 942b0d34-b24d-4724-8039-71f111b43e1b
+		summarizeBy: none
+		sourceColumn: Breakdown
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Maintenance count Alert'
+		dataType: int64
+		formatString: 0
+		lineageTag: cb45a106-bcdb-4537-b600-6e72aa5dcb5e
+		summarizeBy: none
+		sourceColumn: Maintenance count Alert
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vehicle Code'
+		dataType: string
+		lineageTag: 8f8e5168-b2dd-481b-8a40-d7de3026cd18
+		summarizeBy: none
+		sourceColumn: Vehicle Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vehicle Age' = DATEDIFF(Vehicles[Purchase Date], TODAY(), YEAR)
+		formatString: 0
+		lineageTag: 2d0a65f9-9497-40be-b650-939ea6624947
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Vehicles = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\DianaLara\Downloads\Data\Vehicles.csv"),[Delimiter="	", Columns=7, Encoding=1200, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Purchase Date", type text}, {"Vehicle ID", Int64.Type}, {"Vehicle Model", type text}, {"Vehicle Status", type text}, {"Breakdown", Int64.Type}, {"Maintenance count Alert", Int64.Type}, {"Vehicle Code", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

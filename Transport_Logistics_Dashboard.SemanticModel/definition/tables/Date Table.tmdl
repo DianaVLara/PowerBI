@@ -1,0 +1,67 @@
+table 'Date Table'
+	lineageTag: 615d2222-8871-4d56-b21a-a464e1322e85
+
+	column Date
+		formatString: Long Date
+		lineageTag: 87789700-0a6d-4059-a7ed-18ad2c6a0fe7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 4aba40da-6107-49e7-a6a7-050c709ff9fd
+			defaultHierarchy: LocalDateTable_2ee261ca-3aba-4d21-94a5-88d1e478706c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year = YEAR('Date Table'[Date])
+		formatString: 0
+		lineageTag: 6b87dc65-4dc2-4aac-9ca8-db5819af3ef2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month = FORMAT('Date Table'[Date], "mmmm")
+		lineageTag: 8084ddea-bffa-4857-a565-0d2617c9cca4
+		summarizeBy: none
+		sortByColumn: 'Month No'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month No' = MONTH('Date Table'[Date])
+		formatString: 0
+		lineageTag: 7884faea-3e04-450c-8e9e-fe8b1a98e17a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Abr' = FORMAT('Date Table'[Date], "mmm")
+		lineageTag: a1612a93-d7ae-4ccb-901e-87ad4c4b5bbf
+		summarizeBy: none
+		sortByColumn: 'Month No'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day = FORMAT('Date Table'[Date], "ddd")
+		lineageTag: 4bd997ed-01e5-497d-b4eb-c0926543d78e
+		summarizeBy: none
+		sortByColumn: 'Day No'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day No' = WEEKDAY('Date Table'[Date], 2)
+		formatString: 0
+		lineageTag: 26a4938b-4fd5-4d76-8e84-cd1be7ff516a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Date Table' = calculated
+		mode: import
+		source = CALENDAR(MIN(Orders[Order Date]), MAX(Orders[Order Date]))
+
+	annotation PBI_Id = 529a684e56c34344ab2b2f11d829e320
+

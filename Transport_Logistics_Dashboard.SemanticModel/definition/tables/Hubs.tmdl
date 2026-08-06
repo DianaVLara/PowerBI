@@ -1,0 +1,49 @@
+table Hubs
+	lineageTag: f2d64faf-b083-4884-88ff-e2d953f819b4
+
+	measure 'No of Hubs' = "No of Hubs: " & COUNT(Hubs[Hub ID])
+		lineageTag: c4ca110b-a260-4b9b-a81d-f2681bc77abe
+
+		changedProperty = IsHidden
+
+	measure 'Hub Title' = "How Many Hours Does It Take To Process Orders?"
+		lineageTag: 9abc68ba-2b3e-43ad-8102-0a3a126b157f
+
+	column 'Hub ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6b188e11-7a7a-4b3b-8697-a55c3d1b0550
+		summarizeBy: none
+		sourceColumn: Hub ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column HubName
+		dataType: string
+		lineageTag: 6c6a51a5-d185-4c53-9776-828db7eb7f39
+		summarizeBy: none
+		sourceColumn: HubName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hub Capacity'
+		dataType: int64
+		formatString: 0
+		lineageTag: a6818b42-5cbf-4e82-ba89-b55acd940e3f
+		summarizeBy: none
+		sourceColumn: Hub Capacity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Hubs = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\DianaLara\Downloads\Data\Hubs.csv"),[Delimiter="	", Columns=3, Encoding=1200, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Hub ID", Int64.Type}, {"HubName", type text}, {"Hub Capacity", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

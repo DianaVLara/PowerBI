@@ -1,0 +1,100 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 81,
+        "y": 54
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 212,
+            "y": 373
+          },
+          "nodeIndex": "Orders",
+          "nodeLineageTag": "4dfa4069-fb94-413f-9d4d-593dd5ec0cae",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 81
+          },
+          "nodeIndex": "Drivers",
+          "nodeLineageTag": "97ada5bf-e97a-4c8a-a72d-97e0e69ba7f9",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 248,
+            "y": 83
+          },
+          "nodeIndex": "Hubs",
+          "nodeLineageTag": "f2d64faf-b083-4884-88ff-e2d953f819b4",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 495,
+            "y": 81
+          },
+          "nodeIndex": "Vehicles",
+          "nodeLineageTag": "fccda42a-9f4e-4101-b165-71a391e8bab1",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 669,
+            "y": 372
+          },
+          "nodeIndex": "Date Table",
+          "nodeLineageTag": "615d2222-8871-4d56-b21a-a464e1322e85",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 953,
+            "y": 247
+          },
+          "nodeIndex": "Select Measure",
+          "nodeLineageTag": "ee58f51a-3a73-4682-8660-d68010b6b6a7",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

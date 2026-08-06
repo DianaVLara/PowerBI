@@ -1,0 +1,26 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Orders","Drivers","Hubs","Vehicles"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Orders
+ref table Drivers
+ref table Hubs
+ref table Vehicles
+ref table 'Date Table'
+ref table DateTableTemplate_09d2f5e7-08f9-408d-a431-10799cace226
+ref table LocalDateTable_2ee261ca-3aba-4d21-94a5-88d1e478706c
+ref table 'Select Measure'
+
+ref cultureInfo en-US
+

@@ -1,0 +1,21 @@
+relationship AutoDetected_86461a59-eca7-476b-8308-76690d889525
+	fromColumn: Orders.'Driver ID'
+	toColumn: Drivers.DriverID
+
+relationship AutoDetected_6713b5b6-a9bc-40f6-aca5-f5886b5064fb
+	fromColumn: Orders.'Hub Name'
+	toColumn: Hubs.HubName
+
+relationship AutoDetected_c01a852e-56f7-4593-b5ce-ac6d1d0070c9
+	fromColumn: Orders.'Vehicle Name'
+	toColumn: Vehicles.'Vehicle Code'
+
+relationship 4aba40da-6107-49e7-a6a7-050c709ff9fd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Date Table'.Date
+	toColumn: LocalDateTable_2ee261ca-3aba-4d21-94a5-88d1e478706c.Date
+
+relationship 17f7ce10-ccef-d159-c583-b7f3dab73abe
+	fromColumn: Orders.'Order Date'
+	toColumn: 'Date Table'.Date
+

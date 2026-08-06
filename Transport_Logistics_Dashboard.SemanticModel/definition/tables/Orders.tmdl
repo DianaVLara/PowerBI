@@ -1,0 +1,221 @@
+table Orders
+	lineageTag: 4dfa4069-fb94-413f-9d4d-593dd5ec0cae
+
+	measure 'Total Orders' = COUNT(Orders[Order ID])
+		formatString: 0
+		lineageTag: c1a34c9e-669f-4ecd-b245-a1f4017c2629
+
+	measure 'PM Orders' = CALCULATE([Total Orders], DATEADD('Date Table'[Date], -1, MONTH))
+		formatString: 0
+		lineageTag: 28294ef8-8737-49da-9bc9-02ec72bc6765
+
+	measure 'MoM Orders %' = DIVIDE([Total Orders]-[PM Orders],[PM Orders])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a4f8a3e4-95ca-4e63-97ba-ac30cee19cb9
+
+	measure 'Delivered Orders' = CALCULATE([Total Orders], Orders[Order Status]= "Delivered")
+		formatString: 0
+		lineageTag: 682860fa-8fcd-4371-a9e6-f7a8da1e3a38
+
+	measure 'On Time Delivered Orders' = CALCULATE([Total Orders], Orders[Order Status] = "Delivered", Orders[Is On Time] = TRUE())
+		formatString: 0
+		lineageTag: f5a1670b-6a9e-4397-b00c-e6bc7fb6fbfa
+
+	measure 'On Time Delivery Rate' = [On Time Delivered Orders] / [Delivered Orders]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ffeaed42-b788-4cd4-9ad3-92c55760bf69
+
+	measure 'PM On Time Delivery Rate' = CALCULATE([On Time Delivery Rate], DATEADD('Date Table'[Date], -1, MONTH))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 21c345c4-96b0-4490-9cc7-66fadff843b8
+
+	measure 'MoM On Time Delivery %' = DIVIDE([On Time Delivery Rate]-[PM On Time Delivery Rate],[PM On Time Delivery Rate])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a4fb1275-a6f8-44fb-b31f-317a4b13100b
+
+	measure 'CSAT Satisfied Orders' = CALCULATE([Total Orders], Orders[Customer Satisfaction Score] >= 4)
+		formatString: 0
+		lineageTag: 7eacf8b7-476f-4c7e-b7ea-8c88edd8ee64
+
+	measure 'CSAT %' = [CSAT Satisfied Orders] / [Total Orders]
+		lineageTag: 7653a073-a11f-4320-85ad-f9cc13d43904
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'PM CSAT' = CALCULATE([CSAT %], DATEADD('Date Table'[Date], -1, MONTH))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 555e2d97-4326-40ba-846b-6b86eca46706
+
+	measure 'MoM CSAT %' = DIVIDE([CSAT %]-[PM CSAT],[PM CSAT])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d046001c-2d50-470c-aa35-34c0bef6447f
+
+	measure 'Average Delivery Time (Hrs)' = AVERAGE(Orders[Delivery Time Hours])
+		formatString: 0
+		lineageTag: 86c7b68a-c3c1-4cb6-9581-b7dc53e0628d
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'PM Avg Delivery Time' = CALCULATE([Average Delivery Time (Hrs)], DATEADD('Date Table'[Date], -1, MONTH))
+		lineageTag: b53bb5d6-161d-4948-a293-6b348fcff537
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MoM Avg Delivery %' = DIVIDE([Average Delivery Time (Hrs)]-[PM Avg Delivery Time],[PM Avg Delivery Time])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 7cbf4fcb-0659-4425-a098-0fe6f6ff0fc4
+
+	measure 'Delayed Orders' = CALCULATE([Total Orders], Orders[Order Status] = "Delivered", Orders[Is On Time] = FALSE())
+		formatString: 0
+		lineageTag: 45ace46a-32c0-4192-ae37-b87bd4e46d47
+
+	measure 'Delayed Delivery Rate' = [Delayed Orders] / [Delivered Orders]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 69c1ed5b-084d-4244-b0b5-657f0f5aa0e7
+
+	measure 'Year Month Title' = SELECTEDVALUE('Date Table'[Month]) & " " & SELECTEDVALUE('Date Table'[Year])
+		lineageTag: 83b92cb6-2dd5-4689-a628-0ab1c83961ca
+
+	column 'Order ID'
+		dataType: string
+		lineageTag: 554f81fc-0b3f-418e-ba21-7973ecb4a4d4
+		summarizeBy: none
+		sourceColumn: Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Delivery Date'
+		dataType: string
+		lineageTag: 9a585913-9594-4b4d-b78e-6b1faae30bb3
+		summarizeBy: none
+		sourceColumn: Actual Delivery Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delay Reason'
+		dataType: string
+		lineageTag: 8d0858e5-0fa9-4f18-90b5-43eae9ed8e97
+		summarizeBy: none
+		sourceColumn: Delay Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Driver ID'
+		dataType: string
+		lineageTag: 69a12b47-6428-40a1-8d7d-967518441482
+		summarizeBy: none
+		sourceColumn: Driver ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Driver Name'
+		dataType: string
+		lineageTag: 2b825e33-33c6-4967-a9b3-2b00e26775f5
+		summarizeBy: none
+		sourceColumn: Driver Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hub Name'
+		dataType: string
+		lineageTag: 32df80eb-aeb6-4d06-88fd-6692d513aba4
+		summarizeBy: none
+		sourceColumn: Hub Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Delayed'
+		dataType: string
+		lineageTag: ce40283b-ae5d-4505-b594-90555c36a12f
+		summarizeBy: none
+		sourceColumn: Is Delayed
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is On Time'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a9e5169c-52e7-4312-9ac0-870f332cb47c
+		summarizeBy: none
+		sourceColumn: Is On Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7a7c245b-1ba6-47e2-9fd1-697861ebf6c0
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Order Status'
+		dataType: string
+		lineageTag: aaadd5ec-d3d8-4df0-beab-925cc6a480c7
+		summarizeBy: none
+		sourceColumn: Order Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vehicle Name'
+		dataType: string
+		lineageTag: 8fde5a7b-b45f-4d03-a143-b742df3c556c
+		summarizeBy: none
+		sourceColumn: Vehicle Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vehicle Type'
+		dataType: string
+		lineageTag: e894116f-b0c1-4c80-b062-233f2fcd3f4e
+		summarizeBy: none
+		sourceColumn: Vehicle Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Satisfaction Score'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0dd6ec5b-da7a-47e4-a8c5-8bc84c2e78e3
+		summarizeBy: sum
+		sourceColumn: Customer Satisfaction Score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delivery Time Hours'
+		dataType: double
+		lineageTag: c20b91ea-0213-488e-ad36-5b521d2a1aea
+		summarizeBy: sum
+		sourceColumn: Delivery Time Hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Hub Processing Time Hours'
+		dataType: string
+		lineageTag: 434ec00a-e3bb-4689-b2c3-070d0934ad85
+		summarizeBy: none
+		sourceColumn: Hub Processing Time Hours
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Orders = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\DianaLara\Downloads\Data\Orders.csv"),[Delimiter="	", Columns=15, Encoding=1200, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Is On Time", type logical}, {"Customer Satisfaction Score", Int64.Type}, {"Delivery Time Hours", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

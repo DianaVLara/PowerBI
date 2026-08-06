@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "909cec33cc00e0008ada",
+  "displayName": "Drivers Overview",
+  "displayOption": "FitToPage",
+  "height": 850,
+  "width": 1450,
+  "pageBinding": {
+    "name": "f2a19260b6d3d98a220d",
+    "type": "Default",
+    "parameters": []
+  },
+  "objects": {
+    "displayArea": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Middle'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 2,
+                    "Percent": 0.6
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "85D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "2c3c567edd09d01167d7",
+      "target": "ac51c0f72103ab85e7b8",
+      "type": "NoFilter"
+    },
+    {
+      "source": "2c3c567edd09d01167d7",
+      "target": "da79054121ebe01eac30",
+      "type": "NoFilter"
+    },
+    {
+      "source": "8666947e2679014605e2",
+      "target": "c517a4f154a087336e57",
+      "type": "DataFilter"
+    },
+    {
+      "source": "c517a4f154a087336e57",
+      "target": "8666947e2679014605e2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "dd60c044cb02a01cc796",
+      "target": "8666947e2679014605e2",
+      "type": "NoFilter"
+    }
+  ]
+}
