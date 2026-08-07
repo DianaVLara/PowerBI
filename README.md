@@ -49,11 +49,17 @@ Monitors fleet status, maintenance needs, and vehicle performance and utilizatio
 This project uses the **Power BI Project (.pbip)** format for version control:
 
   PowerBI/
-  ├── TransportationDashboard.pbip
-  ├── TransportationDashboard.Report/
-  │   └── ... (report layout, visuals, pages as JSON)
-  ├── TransportationDashboard.SemanticModel/
-  │   └── ... (data model, DAX measures, relationships)
+  ├── Transport_Logistics_Dashboard.pbip
+  ├── Transport_Logistics_Dashboard.Report/
+  │ └── ... (report layout, visuals, pages as JSON)
+  ├── Transport_Logistics_Dashboard.SemanticModel/
+  │ └── ... (data model, DAX measures, relationships)
+  ├── Data/
+  │ ├── Drivers.csv
+  │ ├── Hubs.csv
+  │ ├── Orders.csv
+  │ └── Vehicles.csv
+  ├── images/
   ├── .gitignore
   └── README.md
 
@@ -77,12 +83,26 @@ This project uses the **Power BI Project (.pbip)** format for version control:
 
 ## Screenshots
 
-*[Add screenshots or a short GIF/walkthrough of each dashboard here]*
+### Main Overview
+![Main Overview Dashboard](images/main-overview.png)
+
+### Hubs
+![Hubs Dashboard](images/hubs-dashboard.png)
+
+### Drivers
+![Drivers Dashboard](images/drivers-dashboard.png)
+
+### Vehicles
+![Vehicles Dashboard](images/vehicles-dashboard.png)
+
+### Demo
+![Main Dashboard Demo](images/main-dashboard.gif)
+![Driver Dashboard Demo](images/driver-dashboard.gif)
 
 ## Author
 
-Diana Lara
+Diana V Lara
 
 ## License
 
-*[Add a license if applicable, e.g. MIT, or leave as private/internal use]*
+swapnjeet555@gmail.com
